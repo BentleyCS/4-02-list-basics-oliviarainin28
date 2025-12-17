@@ -9,8 +9,14 @@ def bookends(li: list):
     :param list:
     :return:
     """
+    newList = [li[0], li[len(li)-1]]
+    print(li)
+    li.pop(0)
+    li.pop(len(li)-1)
+    print(li)
 
-
+    return newList
+print(bookends([1,4,7,8,123,31,132,13,31,13]))
 
 def inOrder(li : list):
     """
@@ -18,7 +24,10 @@ def inOrder(li : list):
     :param list:
     :return:
     """
-
+    for i in range(1,len(li)):
+       if li[i-1]> li[i]:
+            return False
+    return True
 
 
 def find(li: list, target : int):
@@ -28,7 +37,7 @@ def find(li: list, target : int):
     If the target value is not in the list return -1
     If multiple of the target value exist within the list you may return either
     index.
-    You are not alowed to use the built-in index method from python.
+    You are not allowed to use the built-in index method from python.
     Example list [1,3,5,7,9] target = 3 returned value would be 1 because 3 can be
     found at the first index.
     Example list [3, 7, 8, 1, 0, 1, 12] target = 1 a return of either 3 or 5 would
@@ -39,6 +48,12 @@ def find(li: list, target : int):
     :return:
     """
 
+    for x in range(len(li)):
+        if li[x] == target:
+            return x
+    return -1
+find([1,3,6,7],5)
+
 
 def removeLowest(li):
     """
@@ -48,7 +63,9 @@ def removeLowest(li):
     :param list:
     :return:
     """
-
+    lowest = min(li)
+    li.remove(lowest)
+    return li
 
 def keepOrder(li: list, value):
     """
@@ -59,8 +76,12 @@ def keepOrder(li: list, value):
     :param value:
     :return:
     """
-
-
+    for i in range(len(li)):
+        if value <= li[i]:
+            li.insert(i, value)
+            return li
+    li.append(value)
+    return li
 def merge(l1:list, l2:list):
     """
     Given two lists that are in order. produce a new list that is the two lists merged together and in order.
@@ -70,4 +91,20 @@ def merge(l1:list, l2:list):
     :param l2:
     :return:
     """
-    
+    result = []
+    i = 0
+    j = 0
+    while i < len(l1) and j < len(l2):
+        if l1[i] <= l2[j]:
+            result.append(l1[i])
+            i += 1
+        else:
+            result.append(l2[j])
+            j += 1
+    while i < len(l1):
+        result.append(l1[i])
+        i += 1
+    while j < len(l2):
+        result.append(l2[j])
+        j += 1
+    return result
